@@ -1,100 +1,100 @@
-const colors = require('colors');
+const colors = require('colors')
 
 colors.setTheme({
-    silly: 'rainbow',
-    log: 'grey',
-    verbose: 'cyan',
-    prompt: 'grey',
-    info: 'green',
-    data: 'grey',
-    help: 'cyan',
-    warn: 'yellow',
-    debug: 'cyan',
-    error: 'red'
-});
-var log = require('fancy-log');
+  silly: 'rainbow',
+  log: 'white',
+  verbose: 'cyan',
+  prompt: 'green',
+  info: 'green',
+  data: 'green',
+  help: 'cyan',
+  warn: 'yellow',
+  debug: 'cyan',
+  error: 'red'
+})
+var log = require('fancy-log')
 
 /**
- * 
- * 
+ *
+ *
  * @class Logger
  */
 class Logger {
-    constructor() {
+  constructor () {
 
-    }
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    log(source, msg) {
-        let message = colors.log(msg)
-        log(`${source} | ${message}`);
-    }
+  log (source, msg) {
+    const message = colors.log(msg)
+    log(`${source} | ${message}`)
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    info(source, msg) {
-        let message = colors.info(msg)
-        log(`${source} | ${message}`);
-    }
+  info (source, msg) {
+    const message = colors.info(msg)
+    log(`${source} | ${message}`)
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    warn(source, msg) {
-        let message = colors.warn(msg)
-        log(`${source} | ${message}`);
-    }
+  warn (source, msg) {
+    const message = colors.warn(msg)
+    log(`${source} | ${message}`)
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    error(source, msg) {
-        let message = colors.error(msg)
-        log(`${source} | ${message}`);
-    }
+  error (source, msg) {
+    const message = colors.error(msg)
+    log(`${source} | ${message}`)
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    data(source, msg) {
-        let message = colors.data(msg)
-        log(`${source} | ${message}`);
-    }
+  data (source, msg) {
+    const message = colors.data(msg)
+    log(`${source} | ${message}`)
+  }
 
-    /**
-     * 
-     * 
-     * @param {any} source 
-     * @param {any} msg 
+  /**
+     *
+     *
+     * @param {any} source
+     * @param {any} msg
      * @memberof Logger
      */
-    debug(source, msg) {
-        let message = colors.debug(msg)
-        log(`${source} | ${message}`);
-    }
+  debug (source, msg) {
+    const message = colors.debug(msg)
+    log(`${source} | ${message}`)
+  }
 }
 
-module.exports = new Logger();
+module.exports = new Logger()
