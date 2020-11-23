@@ -38,7 +38,7 @@ class Cluster {
         this.voiceChannels = 0;
         this.shardsStats = [];
         this.app = null;
-        this.bot = null;
+        this.client = null;
         this.test = false;
 
         console.log = (str) => process.send({ name: "log", msg: this.logOverride(str) });
@@ -104,9 +104,9 @@ class Cluster {
                         break;
                     }
                     case "fetchUser": {
-                        if (!this.bot) return;
+                        if (!this.client) return;
                         let id = msg.value;
-                        let user = this.bot.users.get(id);
+                        let user = this.client.users.get(id);
                         if (user) {
                             process.send({ name: "fetchReturn", value: user });
                         }
@@ -114,9 +114,9 @@ class Cluster {
                         break;
                     }
                     case "fetchChannel": {
-                        if (!this.bot) return;
+                        if (!this.client) return;
                         let id = msg.value;
-                        let channel = this.bot.getChannel(id);
+                        let channel = this.client.getChannel(id);
                         if (channel) {
                             channel = channel.toJSON();
                             return process.send({ name: "fetchReturn", value: channel });
@@ -125,9 +125,9 @@ class Cluster {
                         break;
                     }
                     case "fetchGuild": {
-                        if (!this.bot) return;
+                        if (!this.client) return;
                         let id = msg.value;
-                        let guild = this.bot.guilds.get(id);
+                        let guild = this.client.guilds.get(id);
                         if (guild) {
                             guild = guild.toJSON();
                             process.send({ name: "fetchReturn", value: guild });
@@ -136,10 +136,10 @@ class Cluster {
                         break;
                     }
                     case "fetchMember": {
-                        if (!this.bot) return;
+                        if (!this.client) return;
                         let [guildID, memberID] = msg.value;
 
-                        let guild = this.bot.guilds.get(guildID);
+                        let guild = this.client.guilds.get(guildID);
                         
                         if (guild) {
                             let member = guild.members.get(memberID);
@@ -185,7 +185,7 @@ class Cluster {
         Object.assign(options, clientOptions);
 
         const bot = new Eris(token, options);
-        this.bot = bot;
+        this.client = bot;
 
         bot.on("connect", id => {
             process.send({ name: "log", msg: `Shard ${id} established connection!` });
@@ -276,7 +276,7 @@ class Cluster {
             this.largeGuilds = bot.guilds.filter(g => g.large).length;
             this.exclusiveGuilds = bot.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length;
             this.shardsStats = [];
-            this.bot.shards.forEach(shard => {
+            this.client.shards.forEach(shard => {
                 this.shardsStats.push({
                     id: shard.id,
                     ready: shard.ready,
