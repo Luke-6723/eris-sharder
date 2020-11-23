@@ -1,7 +1,7 @@
 const IPC = require('./IPC.js')
 class Base {
   constructor (setup) {
-    this.client = setup.bot
+    this.client = setup.client
     this.clusterID = setup.clusterID
     this.ipc = new IPC()
   }
