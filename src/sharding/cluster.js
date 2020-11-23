@@ -255,7 +255,7 @@ class Cluster {
     const path = `${rootPath}${this.mainFile}`
     const app = require(path)
     if (app.prototype instanceof Base) {
-      this.app = new app({ bot: bot, clusterID: this.clusterID })
+      this.app = new app({ client: bot, clusterID: this.clusterID })
       this.app.launch()
       this.ipc = this.app.ipc
     } else {
