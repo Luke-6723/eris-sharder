@@ -1,14 +1,14 @@
-const IPC = require("./IPC.js");
+const IPC = require('./IPC.js')
 class Base {
-    constructor(setup) {
-        this.client = setup.bot;
-        this.clusterID = setup.clusterID;
-        this.ipc = new IPC();
-    }
+  constructor (setup) {
+    this.client = setup.bot
+    this.clusterID = setup.clusterID
+    this.ipc = new IPC()
+  }
 
-    restartCluster(clusterID) {
-        this.ipc.sendTo(clusterID, "restart", { name: "restart" });
-    }
+  restartCluster (clusterID) {
+    this.ipc.sendTo(clusterID, 'restart', { name: 'restart' })
+  }
 }
 
-module.exports = Base;
+module.exports = Base
