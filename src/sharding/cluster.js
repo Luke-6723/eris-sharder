@@ -199,7 +199,6 @@ class Cluster {
 
     bot.on('shardReady', id => {
       process.send({ name: 'log', msg: `Shard ${id} is ready!` })
-      this.ipc.broadcast('shardReady', { type: 'event', name: 'shardReady', shard: id })
       const embed = {
         title: 'Shard Status Update',
         description: `Shard ${id} is ready!`
