@@ -199,6 +199,7 @@ class Cluster {
 
     bot.on('shardReady', id => {
       process.send({ name: 'log', msg: `Shard ${id} is ready!` })
+      process.send({ type: 'event', name: 'shardReady', shard: id })
       const embed = {
         title: 'Shard Status Update',
         description: `Shard ${id} is ready!`
