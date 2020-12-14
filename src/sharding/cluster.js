@@ -1,9 +1,12 @@
 let Eris
+let Endpoints
 
 try {
   Eris = require('eris-additions')(require('eris'))
+  Endpoints = require("eris/lib/rest/Endpoints");
 } catch (err) {
   Eris = require('eris')
+  Endpoints = require("eris/lib/rest/Endpoints");
 }
 
 const Base = require('../structures/Base.js')
