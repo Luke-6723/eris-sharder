@@ -3,10 +3,10 @@ let Endpoints
 
 try {
   Eris = require('eris-additions')(require('eris'))
-  Endpoints = require("eris/lib/rest/Endpoints");
+  Endpoints = require("../ErisBase");
 } catch (err) {
   Eris = require('eris')
-  Endpoints = require("eris/lib/rest/Endpoints");
+  Endpoints = require("../ErisBase");
 }
 
 const Base = require('../structures/Base.js')
