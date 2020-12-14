@@ -11,6 +11,8 @@ pids
 *.seed
 *.pid.lock
 
+.idea
+
 # VSCode
 .vscode
 
