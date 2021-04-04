@@ -270,12 +270,13 @@ class Cluster {
 
     const bot = new Eris(token, options)
     this.client = bot
+    console.log(this.client.sessionID)
 
     bot.on('connect', id => {
       process.send({ name: 'log', msg: `Shard ${id} established connection!` })
     })
 
-    bot.on('shardDisconnect', (err, id) => {
+    bot.on('shardDisconnect', (_, id) => {
       process.send({ name: 'log', msg: `Shard ${id} disconnected!` })
       const embed = {
         title: 'Shard Status Update',
