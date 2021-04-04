@@ -8,6 +8,11 @@ const sharder = new Sharder(process.env.TOKEN, '/tests/main.js', {
   // clusters: 2,
   shards: 12,
   debug: true
+}, {
+  host: 'localhost',
+  port: 7044,
+  auth: process.env.REDIS_AUTH,
+  db: 0
 })
 
 sharder.on('stats', stats => {
