@@ -2,7 +2,7 @@ const Sharder = require('../src/index').Master
 
 require('dotenv').config()
 
-const sharder = new Sharder(process.env.TOKEN, '/main.js', {
+const sharder = new Sharder(process.env.TOKEN, '/tests/main.js', {
   name: 'Travis CLI',
   stats: true,
   // clusters: 2,
