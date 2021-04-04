@@ -1,3 +1,4 @@
+const Redis = require('../utils/redis')
 let Eris
 let Endpoints
 
@@ -23,7 +24,8 @@ class Cluster {
      * @param {any} clusterID
      * @memberof Cluster
      */
-  constructor () {
+  constructor (redis) {
+    this.sessionCache = new Redis('ErisCache', redis.db, { host: redis.host, port: redis.port, auth: redis.auth })
     this.shards = 0
     this.maxShards = 0
     this.firstShardID = 0
@@ -270,7 +272,6 @@ class Cluster {
 
     const bot = new Eris(token, options)
     this.client = bot
-    console.log(this.client.sessionID)
 
     bot.on('connect', id => {
       process.send({ name: 'log', msg: `Shard ${id} established connection!` })
