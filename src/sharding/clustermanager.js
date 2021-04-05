@@ -21,8 +21,9 @@ class ClusterManager extends EventEmitter {
      * @param {any} options
      * @memberof ClusterManager
      */
-  constructor (token, mainFile, options, redis) {
-    super(redis)
+  constructor (token, mainFile, options) {
+    super()
+    this.redisDetails = options.redis
     this.shardCount = options.shards || 0
     this.firstShardID = options.firstShardID || 0
     this.lastShardID = options.lastShardID || (this.shardCount - 1)
@@ -195,7 +196,7 @@ class ClusterManager extends EventEmitter {
         this.start(0)
       })
     } else if (master.isWorker) {
-      const Cluster = new cluster()
+      const Cluster = new cluster(this.redisDetails)
       Cluster.spawn()
     }
 
