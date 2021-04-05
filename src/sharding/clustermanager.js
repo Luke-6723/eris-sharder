@@ -21,7 +21,7 @@ class ClusterManager extends EventEmitter {
      * @param {any} options
      * @memberof ClusterManager
      */
-  constructor (token, mainFile, options, redis = { host: '', port: '', auth: '', db: 0 }) {
+  constructor (token, mainFile, options, redis) {
     super(redis)
     this.shardCount = options.shards || 0
     this.firstShardID = options.firstShardID || 0

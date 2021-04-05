@@ -1,5 +1,4 @@
 const redis = require('redis')
-const redisConfig = require('../../config.json').redis
 const { promisify } = require('util')
 
 class Redis {

@@ -24,8 +24,8 @@ class Cluster {
      * @param {any} clusterID
      * @memberof Cluster
      */
-  constructor (redis) {
-    this.sessionCache = new Redis('ErisCache', redis.db, { host: redis.host, port: redis.port, auth: redis.auth })
+  constructor () {
+    this.sessionCache = new Redis('ErisCache', 0, { host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, auth: process.env.REDIS_AUTH })
     this.shards = 0
     this.maxShards = 0
     this.firstShardID = 0
@@ -273,8 +273,15 @@ class Cluster {
     const bot = new Eris(token, options)
     this.client = bot
 
-    bot.on('connect', id => {
+    bot.on('connect', async id => {
       process.send({ name: 'log', msg: `Shard ${id} established connection!` })
+      process.send({ name: 'DATABASE_EVENT', type: 'REDIS' })
+      const sessionID = await this.sessionCache.get(`${process.env.REDIS_TAG}:sessions:shard-${id}`)
+      console.log(sessionID)
+      if (sessionID) {
+        this.existingSession = true
+        this.client.shards.get(id).sessionID = sessionID
+      }
     })
 
     bot.on('shardDisconnect', (_, id) => {
@@ -292,6 +299,11 @@ class Cluster {
         title: 'Shard Status Update',
         description: `Shard ${id} is ready!`
       }
+      if (!this.existingSession) {
+        process.send({ name: 'DATABASE_EVENT', type: 'REDIS' })
+        this.sessionCache.set(`${process.env.REDIS_TAG}:sessions:shard-${id}`, this.client.shards.get(id).sessionID)
+        process.send({ name: 'log', msg: `Updated Shard ${id} Redis Session!` })
+      }
       process.send({ name: 'shard', embed: embed })
     })
 
@@ -305,6 +317,9 @@ class Cluster {
     })
 
     bot.on('warn', (message, id) => {
+      if (message === 'Invalid session, reidentifying!') {
+        this.existingSession = false
+      }
       process.send({ name: 'warn', msg: `Shard ${id} | ${message}` })
     })
 
