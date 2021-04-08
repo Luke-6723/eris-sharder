@@ -3,10 +3,10 @@ let Endpoints
 
 try {
   Eris = require('eris-additions')(require('eris'))
-  Endpoints = require("../ErisBase");
+  Endpoints = require('../ErisBase')
 } catch (err) {
   Eris = require('eris')
-  Endpoints = require("../ErisBase");
+  Endpoints = require('../ErisBase')
 }
 
 const Base = require('../structures/Base.js')
@@ -50,87 +50,87 @@ class Cluster {
 
     Object.defineProperties(Eris.Client.prototype, {
       fetchChannel: {
-        value: function(channelID) {
-          return this.requestHandler.request("GET", Endpoints.CHANNEL(channelID), true).then((channel) => {
+        value: function (channelID) {
+          return this.requestHandler.request('GET', Endpoints.CHANNEL(channelID), true).then((channel) => {
             if (channel.type === 0) {
-              return new Eris.TextChannel(channel, null, this.options.messageLimit);
+              return new Eris.TextChannel(channel, null, this.options.messageLimit)
             } else if (channel.type === 1) {
-              return new Eris.PrivateChannel(channel, this);
+              return new Eris.PrivateChannel(channel, this)
             } else if (channel.type === 2) {
-              return new Eris.VoiceChannel(channel, null);
+              return new Eris.VoiceChannel(channel, null)
             } else if (channel.type === 3) {
-              return new Eris.GroupChannel(channel, this);
+              return new Eris.GroupChannel(channel, this)
             } else if (channel.type === 4) {
-              return new Eris.CategoryChannel(channel, null);
+              return new Eris.CategoryChannel(channel, null)
             } else {
-              return channel;
+              return channel
             }
-          });
+          })
         }
       },
       fetchGuild: {
-        value: function(guildID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD(guildID), true).then((guild) => new Eris.Guild(guild, this));
+        value: function (guildID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD(guildID), true).then((guild) => new Eris.Guild(guild, this))
         }
       },
       fetchGuilds: {
-        value: function(limit, before, after) {
-          return this.requestHandler.request("GET", Endpoints.USER_GUILDS("@me"), true, {
+        value: function (limit, before, after) {
+          return this.requestHandler.request('GET', Endpoints.USER_GUILDS('@me'), true, {
             limit,
             before,
             after
-          }).then((guilds) => guilds.map((guild) => new Eris.Guild(guild, this)));
+          }).then((guilds) => guilds.map((guild) => new Eris.Guild(guild, this)))
         }
       },
       fetchGuildChannels: {
-        value: function(guildID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_CHANNELS(guildID), true).then((channels) => channels.map((channel) => {
+        value: function (guildID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_CHANNELS(guildID), true).then((channels) => channels.map((channel) => {
             if (channel.type === 0) {
-              return new Eris.TextChannel(channel, null, this.options.messageLimit);
+              return new Eris.TextChannel(channel, null, this.options.messageLimit)
             } else if (channel.type === 2) {
-              return new Eris.VoiceChannel(channel, null);
+              return new Eris.VoiceChannel(channel, null)
             } else if (channel.type === 4) {
-              return new Eris.CategoryChannel(channel, null);
+              return new Eris.CategoryChannel(channel, null)
             } else {
-              return channel;
+              return channel
             }
-          }));
+          }))
         }
       },
       fetchGuildEmojis: {
-        value: function(guildID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_EMOJIS(guildID), true);
+        value: function (guildID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_EMOJIS(guildID), true)
         }
       },
       fetchGuildEmoji: {
-        value: function(guildID, emojiID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_EMOJI(guildID, emojiID), true);
+        value: function (guildID, emojiID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_EMOJI(guildID, emojiID), true)
         }
       },
       fetchGuildMembers: {
-        value: function(guildID, limit, after) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_MEMBERS(guildID), true, {
+        value: function (guildID, limit, after) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_MEMBERS(guildID), true, {
             limit,
             after
-          }).then((members) => members.map((member) => new Eris.Member(member, null)));
+          }).then((members) => members.map((member) => new Eris.Member(member, null)))
         }
       },
       fetchGuildMember: {
-        value: function(guildID, memberID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_MEMBER(guildID, memberID), true).then((member) => new Eris.Member(member, null));
+        value: function (guildID, memberID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_MEMBER(guildID, memberID), true).then((member) => new Eris.Member(member, null))
         }
       },
       fetchGuildRoles: {
-        value: function(guildID) {
-          return this.requestHandler.request("GET", Endpoints.GUILD_ROLES(guildID), true).then((roles) => roles.map((role) => new Eris.Role(role, null)));
+        value: function (guildID) {
+          return this.requestHandler.request('GET', Endpoints.GUILD_ROLES(guildID), true).then((roles) => roles.map((role) => new Eris.Role(role, null)))
         }
       },
       fetchUser: {
-        value: function(userID) {
-          return this.requestHandler.request("GET", Endpoints.USER(userID), true).then((user) => new Eris.User(user, this));
+        value: function (userID) {
+          return this.requestHandler.request('GET', Endpoints.USER(userID), true).then((user) => new Eris.User(user, this))
         }
       }
-    });
+    })
   }
 
   logOverride (message) {
