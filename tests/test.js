@@ -1,15 +1,22 @@
-const Sharder = require("../src/index").Master;
+const Sharder = require('../src/index').Master
 
-require('dotenv').config();
+require('dotenv').config()
 
-let sharder = new Sharder(process.env.TOKEN, "/main.js", {
-    name: "Travis CLI",
-    stats: true,
-    // clusters: 2,
-    shards: 12,
-    debug: true
-});
+const sharder = new Sharder(process.env.TOKEN, '/tests/main.js', {
+  name: 'Travis CLI',
+  stats: true,
+  // clusters: 2,
+  shards: 12,
+  debug: true,
+  redis: {
+    host: 'localhost',
+    port: 7045,
+    auth: process.env.REDIS_AUTH,
+    db: 0,
+    tag: 'local'
+  }
+})
 
-sharder.on("stats", stats => {
-    console.log(stats)
-});
+sharder.on('stats', stats => {
+  console.log(stats)
+})
