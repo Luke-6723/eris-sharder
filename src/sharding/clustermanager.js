@@ -47,6 +47,7 @@ class ClusterManager extends EventEmitter {
 
     if (options.webhooks) {
       this.webhooks = {
+        color: options.webhooks.color,
         cluster: options.webhooks.cluster,
         shard: options.webhooks.shard
       }
