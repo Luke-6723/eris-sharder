@@ -396,9 +396,11 @@ class ClusterManager extends EventEmitter {
      */
   sendWebhook (type, embed) {
     if (!this.webhooks || !this.webhooks[type]) return
+    const color = this.webhooks.color
     const id = this.webhooks[type].id
     const token = this.webhooks[type].token
     embed.timestamp = new Date()
+    embed.color = color
     if (id && token) {
       this.eris.executeWebhook(id, token, { embeds: [embed] })
     }
