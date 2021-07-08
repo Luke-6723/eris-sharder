@@ -276,13 +276,6 @@ class Cluster {
 
     bot.on('connect', async id => {
       process.send({ name: 'log', msg: `Shard ${id} established connection!` })
-      process.send({ name: 'DATABASE_EVENT', type: 'REDIS' })
-      const sessionID = await this.sessionCache.get(`${this.redisInfo.tag}:sessions:shard-${id}`)
-      console.log(sessionID)
-      if (sessionID) {
-        this.existingSession = true
-        this.client.shards.get(id).sessionID = sessionID
-      }
     })
 
     bot.on('shardDisconnect', (_, id) => {
